@@ -2313,7 +2313,15 @@ body {
     gap: 25px;
 
 }
-
+#form-notification {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 12px;
+    display: none; 
+}
 
 .form-group {
     position: relative;
@@ -2363,6 +2371,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: relative;
 }
 
 .contacts__input {
@@ -2732,7 +2741,26 @@ body {
         width: 40px;
         height: 40px;
         position: relative;
+
     }
+
+
+    .contacts__descr {
+        position: absolute;
+        top: 70px;
+    }
+
+    #form-notification {
+        width: 100%;
+        position: absolute;
+        top: -20px;
+        left: 65%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 12px;
+        display: none; 
+    }
+
 
     .contacts__descr-img img {
         position: relative;
