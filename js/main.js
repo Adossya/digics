@@ -566,17 +566,17 @@ const close = document.querySelector('.header__close');
 
 
 
-
-
 const form = document.querySelector('.contacts__form');
-const nameInput = form.querySelector('input[name="entry.205358548"]');
-const emailInput = form.querySelector('input[name="entry.171842244"]');
-const telegramInput = form.querySelector('input[name="entry.38569460"]');
+const nameInput = form.querySelector('input[name="entry.2059123062"]');
+const emailInput = form.querySelector('input[name="entry.161505263"]');
+const telegramInput = form.querySelector('input[name="entry.1731244058"]');
 
 // Находим соответствующие элементы сообщений об ошибке
 const nameError = nameInput.parentElement.querySelector('.error-message');
 const emailError = emailInput.parentElement.querySelector('.error-message');
 const telegramError = telegramInput.parentElement.querySelector('.error-message');
+
+const notification = document.getElementById('form-notification');
 
 // Функции проверки
 function isValidName(value) {
@@ -591,9 +591,10 @@ function isValidEmail(email) {
 
 // Валидация при отправке формы
 form.addEventListener('submit', (e) => {
+  e.preventDefault(); // Отменяем стандартную отправку
+
   let valid = true;
 
-  // Проверка имени
   if (!isValidName(nameInput.value)) {
     nameError.style.display = 'block';
     nameInput.classList.remove('valid');
@@ -605,7 +606,6 @@ form.addEventListener('submit', (e) => {
     nameInput.classList.add('valid');
   }
 
-  // Проверка email
   if (!isValidEmail(emailInput.value)) {
     emailError.style.display = 'block';
     emailInput.classList.remove('valid');
@@ -617,7 +617,6 @@ form.addEventListener('submit', (e) => {
     emailInput.classList.add('valid');
   }
 
-  // Проверка Telegram (может быть необязательным, если нужно)
   if (telegramInput.value.trim() === "") {
     telegramError.style.display = 'block';
     telegramInput.classList.remove('valid');
@@ -629,10 +628,32 @@ form.addEventListener('submit', (e) => {
     telegramInput.classList.add('valid');
   }
 
-  // Если есть ошибки - отменяем отправку
-  if (!valid) {
-    e.preventDefault();
-  }
+  if (!valid) return; // Если есть ошибки — не отправляем
+
+  // Отправляем форму вручную через fetch
+  const formData = new FormData(form);
+  fetch(form.action, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).then(() => {
+    notification.style.display = 'block';
+
+    // Сбрасываем форму
+    form.reset();
+
+    // Сбрасываем валидационные классы
+    [nameInput, emailInput, telegramInput].forEach(input => {
+      input.classList.remove('valid');
+    });
+
+    // Убираем уведомление через 5 секунд
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 5000);
+  }).catch((error) => {
+    console.error('Ошибка отправки:', error);
+  });
 });
 
 // Подсветка ошибок при вводе
@@ -674,20 +695,15 @@ telegramInput.addEventListener('input', () => {
 
 // Сброс ошибок при клике вне формы
 document.addEventListener('click', (event) => {
-    const form = document.querySelector('.contacts__form');
-    if (!form.contains(event.target)) {
-        form.querySelectorAll('.error-message').forEach(msg => {
-            msg.style.display = 'none';
-        });
-        form.querySelectorAll('.contacts__input').forEach(input => {
-            input.classList.remove('error');
-        });
-    }
+  if (!form.contains(event.target)) {
+    form.querySelectorAll('.error-message').forEach(msg => {
+      msg.style.display = 'none';
+    });
+    form.querySelectorAll('.contacts__input').forEach(input => {
+      input.classList.remove('error');
+    });
+  }
 });
-
-
-
-
 
 
 

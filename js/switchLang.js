@@ -70,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         editSecondLine: "iдeї та",
         editThirdLine: "дії на",
         editFourthLine: 'зростання',
-        errorMessage: ['Обязательное поле','Обязательное поле','Обязательное поле']
+        errorMessage: ['Обязательное поле','Обязательное поле','Обязательное поле'],
+        succesMessage: 'Повідомлення успішно надіслано'
       },
       priorities: {
         title: "Наші",
@@ -146,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
         editSecondLine: "and actions",
         editThirdLine: "into",
         editFourthLine: 'growth',
-        errorMessage: ['Required field','Required field','Required field']
+        errorMessage: ['Required field','Required field','Required field'],
+        succesMessage: 'Notification successfully sent'
     },
     priorities: {
         title: "Our",
@@ -229,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const contactTitleDescription = document.querySelector('.contacts__descr');
 
-
+      const contactSuccess = document.querySelector('#form-notification');
      
       const contactsBtn= document.querySelector('[data-elem-id="1642972311122"]');
       const contactsButton= document.querySelector('.contacts__button');
@@ -252,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       contactTitleDescription.textContent = langObj.contacts.descr;
       contactsButton.textContent = langObj.contacts.btn;
-
+      contactSuccess.textContent = langObj.contacts.succesMessage;
       //priorities
       const careersH2 = document.getElementById('careers__h2');
       const careersSpan = document.getElementById('careers__span');
